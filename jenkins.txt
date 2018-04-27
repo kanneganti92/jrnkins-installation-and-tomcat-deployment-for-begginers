@@ -1,0 +1,194 @@
+
+To create instance in google cloud visit https://cloud.google.com/
+
+ 
+Then select the go to console option 
+You can see the following GUI on screen there select the product and services 
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+Jenkins installation in centos 7
+su jenkins -s /bin/bash to change to Jenkins user
+
+
+1.	https://www.vultr.com/docs/how-to-install-jenkins-on-centos-7  is good****
+install wget
+set environment variables for java
+for assigning varables used command is 
+
+
+2.	http://kanchana-myworld.blogspot.com/2017/11/installing-jenkins-in-gcp-instance.html 
+https://hostpresto.com/community/tutorials/how-to-install-jenkins-on-centos-7/
+https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+https://stackoverflow.com/questions/48871323/setting-java-environmental-variables-on-centos-7-breaks-the-path
+https://www.2daygeek.com/setup-java-environment-variables-on-ubuntu-centos-debian-fedora-mint-rhel-opensuse/#
+https://www.centoshowtos.org/environment-variables/
+if you get any error 403 with git integration http://www.technowise.in/2016/10/fix-no-valid-crumb-was-included-in.html
+java installation and settingup environment varables:
+1.wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.rpm
+2.yum install –y jdk-8u161-linux-x64.rpm 
+3. alternatives --config java
+4.export the java-home,path
+export JAVA_HOME=/usr/java/jdk1.8.0_161/jre
+export PATH=$PATH:JAVA_HOME/bin
+export PATH=$PATH:$JAVA_HOME/bin
+https://help.github.com/articles/changing-a-remote-s-url/ -----git conflicts answers
+what maven do?
+1.validate code
+2.compile code
+3.test the code
+4.package code
+5.verfiy the code
+6.install required packages
+7.deploy
+Jenkins Installation procedure:
+1.wget https://pkg.jenkins.io/redhat-stable/jenkins-2.89.4-1.1.noarch.rpm
+2. rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+3.Yum install –y jenkins-2.89.4-1.1.noarch.rpm
+4.rpm –qa Jenkins
+5.systemctl start jenkins
+6.systemctl status jenkins
+ 
+7.it shows the Jenkins passwords location
+  
+
+ 
+9.after entering the intial password you will see this screen
+ 
+10.You have two options to install plugins install suggested plugin or select plugins to install you can choose any option depends on your requirement
+11.For initially it ask for add admin details you can fill your details here
+
+
+12.after filling of admin details Jenkins setup is complete it pop-up the below screen
+ 
+13.if you click the start Jenkins option it will shows Jenkins dashboard
+ 
+14.first we will see about Jenkins administration 
+Check the security is enabled or not ,if  not  make sure to enable it
+For the Authentication you have different options you can choose the option the depends on the size of your organizations
+
+ 
+If you want to go with role base strategy you need to install role base strategy plugin
+
+
+
+
+
+
+
+
+
+
+
+
+Jenkins integration with github:
+Payload URL:Jenkins url/github-webhook/
+Content type:select json
+ 
+Tomcat Installation
+https://www.youtube.com/watch?v=kH8iupBo0Yc
+
+
+
+Tomcat Installation:
+Before installing java installation is reqired
+1.sudo –i to goto root
+2.yum install –y wget
+create group tomcat for maintaining security
+3.groupadd tomcat
+first you need to deside the where do you want to install Tomcat here I’m creating tomcat directory in /opt
+4.cd /opt
+5.mkdir tomcat
+6.cd tomcat
+Then create the user tomcat in the tomcat group
+7. useradd  -g tomcat -d /opt/tomcat tomcat
+8.wget http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.30/bin/apache-tomcat-8.5.30.tar.gz
+9. tar –xvzf apache-tomcat-8.5.30.tar.gz
+10.yum install –y tomcat
+11.cd /opt/tomcat/ apache-tomcat-8.5.30
+12. [root@java apache-tomcat-8.5.30]# ls -ltr
+total 92
+drwxr-x---. 2 root root     6 Apr  3 20:04 work
+drwxr-x---. 2 root root     6 Apr  3 20:04 logs
+drwxr-x---. 7 root root    81 Apr  3 20:04 webapps
+-rw-r-----. 1 root root 16246 Apr  3 20:07 RUNNING.txt
+-rw-r-----. 1 root root  7138 Apr  3 20:07 RELEASE-NOTES
+-rw-r-----. 1 root root  1723 Apr  3 20:07 NOTICE
+-rw-r-----. 1 root root 57092 Apr  3 20:07 LICENSE
+drwx------. 2 root root   238 Apr  3 20:07 conf
+drwxr-x---. 2 root root    30 Apr 15 01:18 temp
+drwxr-x---. 2 root root  4096 Apr 15 01:18 lib
+drwxr-x---. 2 root root  4096 Apr 15 01:18 bin
+[root@java apache-tomcat-8.5.30]# 
+cd ..
+ [root@java tomcat]# ls -ltr
+total 9320
+-rw-r--r--. 1 root root 9541892 Apr  3 20:35 apache-tomcat-8.5.30.tar.gz
+drwxrw-r-x. 9 root root     160 Apr 15 01:18 apache-tomcat-8.5.30
+[root@java tomcat]# chmod 775 apache-tomcat-8.5.30  here we are giving execution permission to group
+
+14.we want tomcat as a tomcat group and tomcat user for that use the following command
+15. [root@java tomcat]# chown tomcat:tomcat -R apache-tomcat-8.5.30
+[root@java tomcat]# cd apache-tomcat-8.5.30 
+[root@java apache-tomcat-8.5.30]# ls –ltr   
+total 92
+drwxr-x---. 2 tomcat tomcat     6 Apr  3 20:04 work
+drwxr-x---. 2 tomcat tomcat     6 Apr  3 20:04 logs
+drwxr-x---. 7 tomcat tomcat    81 Apr  3 20:04 webapps
+-rw-r-----. 1 tomcat tomcat 16246 Apr  3 20:07 RUNNING.txt
+-rw-r-----. 1 tomcat tomcat  7138 Apr  3 20:07 RELEASE-NOTES
+-rw-r-----. 1 tomcat tomcat  1723 Apr  3 20:07 NOTICE
+-rw-r-----. 1 tomcat tomcat 57092 Apr  3 20:07 LICENSE
+drwx------. 2 tomcat tomcat   238 Apr  3 20:07 conf
+drwxr-x---. 2 tomcat tomcat    30 Apr 15 01:18 temp  
+drwxr-x---. 2 tomcat tomcat  4096 Apr 15 01:18 lib 
+drwxr-x---. 2 tomcat tomcat  4096 Apr 15 01:18 bin
+[root@java apache-tomcat-8.5.30]# 
+16. chmod 775 * changing permissions we are giving allrights to tomcat group and tomcat user
+17.  
+
+
+  
+18.
+ 
+19.if you want to change port number
+ 
+ 
+20. add the port number to instance firewall
+ 
+ 
+21 
+22.to setup user name and password for tomcat
+<user username="deployer" password="deployer" roles="manager-gui,manager-script,admin" />
+
+ 
+ 
+23.
+ 
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+	https://github.com/sivajavatechie/JenkinsWar----basic war file deployment in tomcat
+
