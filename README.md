@@ -1,1 +1,0 @@
-# jrnkins-installation-and-tomcat-deployment-for-begginers
